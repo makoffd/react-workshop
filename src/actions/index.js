@@ -14,6 +14,13 @@ export function updateData(data) {
     };
 }
 
+export function searchProduct(text) {
+    return {
+        type: 'DATA_SEARCH',
+        text
+    };
+}
+
 export function getCatalogData() {
     return function(dispatch) {
         return requestData(1500)

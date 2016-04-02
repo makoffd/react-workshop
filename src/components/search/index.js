@@ -1,12 +1,16 @@
-import React from 'react';
-import './styles.css';
+import { connect } from 'react-redux';
+import Search from './component.js';
+import { searchProduct } from '~/actions';
 
-import Input from '#input';
+const mapDispatchToProps = dispatch => {
+    return {
+        onChange(e) {
+            dispatch(searchProduct(e.target.value));
+        }
+    };
+};
 
-export default function Search(props) {
-    return (
-        <div block="search">
-            <Input mix={{ block: 'search', elem: 'input' }} type="search" {...props} />
-        </div>
-    );
-}
+export default connect(
+    null,
+    mapDispatchToProps
+)(Search);

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Search from '~/components/search';
+import Search from '#search';
 import ViewSwitcher from '~/components/view-switcher';
-import ProductList from '~/components/product-list';
+import ProductList from '#product-list';
 import CatalogStatus from '~/components/catalog-status';
 
 export default class App extends React.Component {
@@ -27,7 +27,7 @@ export default class App extends React.Component {
                     <CatalogStatus title={this.props.title} productCount={this.props.productCount}>
                         <ViewSwitcher />
                     </CatalogStatus>
-                    <ProductList data={this.props.data} />
+                    <ProductList />
                 </div>
             </div>
         );

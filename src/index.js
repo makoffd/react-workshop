@@ -8,8 +8,6 @@ import App from '#app';
 
 import './assets/styles.css';
 
-const devToolsMiddleware = window.devToolsExtension && window.devToolsExtension();
-
 function catalogReducer(catalog = {}, action) {
     switch (action.type) {
         case 'VIEW_SELECT':
@@ -21,6 +19,11 @@ function catalogReducer(catalog = {}, action) {
             return {
                 ...catalog,
                 data: action.data
+            };
+        case 'DATA_SEARCH':
+            return {
+                ...catalog,
+                searchPhrase: action.text
             };
         default:
             return catalog;
@@ -40,12 +43,12 @@ const store = createStore(
         catalog: {
             data: null,
             views: [ 'grid', 'list' ],
-            selectedView: 'grid'
+            selectedView: 'grid',
+            searchPhrase: ''
         }
     },
     applyMiddleware(
-        thunkMiddleware,
-        devToolsMiddleware
+        thunkMiddleware
     )
 );
 
