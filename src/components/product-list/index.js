@@ -2,11 +2,9 @@ import { connect } from 'react-redux';
 import ProductList from './component.js';
 
 function productFilter(items, phrase) {
-    var reg = new RegExp(phrase, 'i');
-    if (phrase != '') {
-        items = items.filter(item => reg.test(item.data.name));
-    }
-    return items;
+    const reg = new RegExp(phrase, 'i');
+
+    return items.filter(item => reg.test(item.data.name));
 }
 
 const mapStateToProps = state => {
@@ -14,6 +12,7 @@ const mapStateToProps = state => {
         state.catalog.data.results,
         state.catalog.searchPhrase
     );
+
     return {
         view: state.catalog.selectedView,
         data: products,

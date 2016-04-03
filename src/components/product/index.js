@@ -6,6 +6,10 @@ import BuyButton from '~/components/button-buy';
 import Price from '#price';
 
 export default class Product extends React.Component {
+    handleProductClick = () => {
+        browserHistory.push('/pdp/' + this.props.product.id);
+    }
+
     renderName(name) {
         return (
             <div className="product-card__name-wrap">
@@ -79,7 +83,7 @@ export default class Product extends React.Component {
         const { product } = this.props;
 
         return (
-            <div className="product-card" onClick={() => {browserHistory.push('/pdp/'+product.id)}}>
+            <div className="product-card" onClick={this.handleProductClick}>
                 <div className="product-card__img">
                     <img
                         alt={product.data.name}

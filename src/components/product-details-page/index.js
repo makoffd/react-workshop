@@ -3,7 +3,7 @@ import { goBack } from 'react-router-redux';
 import ProcductDetailsPage from './component.js';
 
 function getProductById(products, pid) {
-    return products.filter(item => item.id == pid)[0];
+    return products.filter(item => item.id === pid / 1)[0];
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        clickBack(e) {
+        handleClickBack(e) {
             dispatch(goBack());
         }
     };
