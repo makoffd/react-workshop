@@ -10,7 +10,13 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
+const mapStateToProps = state => {
+    return {
+        value: state.catalog.searchPhrase
+    }
+};
+
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(Search);

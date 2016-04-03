@@ -11,3 +11,6 @@
 .product__price_view_list .price__old-value {
     top: -6px;
 }
+.product-card {
+    cursor: pointer;
+}

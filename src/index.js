@@ -1,12 +1,25 @@
+import { createDevTools } from 'redux-devtools';
+import LogMonitor from 'redux-devtools-log-monitor';
+import DockMonitor from 'redux-devtools-dock-monitor';
+
 import React from 'react';
 import { render } from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
+import { Router, Route, browserHistory } from 'react-router';
+import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
 
 import App from '#app';
+import ProcductDetailsPage from '#product-details-page';
 
 import './assets/styles.css';
+
+const DevTools = createDevTools(
+  <DockMonitor toggleVisibilityKey="ctrl-h" changePositionKey="ctrl-q">
+    <LogMonitor theme="tomorrow" preserveScrollTop={false} />
+  </DockMonitor>
+)
 
 function catalogReducer(catalog = {}, action) {
     switch (action.type) {
@@ -33,9 +46,12 @@ function catalogReducer(catalog = {}, action) {
 function rootReducer(state = {}, action) {
     return {
         ...state,
-        catalog: catalogReducer(state.catalog, action)
+        catalog: catalogReducer(state.catalog, action),
+        routing: routerReducer(state.routing, action)
     };
 }
+
+const devToolsExtension = window.devToolsExtension ? window.devToolsExtension() : f => f
 
 const store = createStore(
     rootReducer,
@@ -47,14 +63,24 @@ const store = createStore(
             searchPhrase: ''
         }
     },
-    applyMiddleware(
-        thunkMiddleware
+    compose(
+      applyMiddleware(
+          thunkMiddleware,
+          routerMiddleware(browserHistory),
+
+      ),
+      devToolsExtension
     )
 );
 
+const history = syncHistoryWithStore(browserHistory, store)
+
 render(
     <Provider store={store}>
-        <App />
+        <Router history={history}>
+            <Route path="/" component={App}/>
+            <Route path="/pdp/:id" component={ProcductDetailsPage}/>
+        </Router>
     </Provider>,
     document.getElementById('app')
 );

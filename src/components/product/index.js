@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 import ProductRating from '~/components/product-rating';
 import BuyButton from '~/components/button-buy';
@@ -78,16 +79,14 @@ export default class Product extends React.Component {
         const { product } = this.props;
 
         return (
-            <div className="product-card">
-                <a href="http://www.lazada.vn/usb-sandisk-cruzer-edge-cz52-16gb-den-phoi-do-1245208.html">
-                    <div className="product-card__img">
-                        <img
-                            alt={product.data.name}
-                            src={product.images[0].path}
-                            />
-                    </div>
-                    {this.renderDescription(product)}
-                </a>
+            <div className="product-card" onClick={() => {browserHistory.push('/pdp/'+product.id)}}>
+                <div className="product-card__img">
+                    <img
+                        alt={product.data.name}
+                        src={product.images[0].path}
+                        />
+                </div>
+                {this.renderDescription(product)}
             </div>
         );
     }
